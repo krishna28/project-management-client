@@ -99,8 +99,14 @@ angular.module('mainService', [])
 		})		
 	}
 	
-	mainFactory.deleteComment = function(){
+	mainFactory.deleteComment = function(data){
+		console.log(data);
+		var url = baseUrl.concat("api/project/").concat(data.projectId).concat("/task/").concat(data.taskId).concat("/comment/").concat(data.commentId);
 		
+		return $http.delete(url,config.contentTypeConfig)
+		.success(function(serviceResponse) {
+			return serviceResponse;
+		});
 		
 	}
 	
