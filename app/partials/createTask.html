@@ -40,11 +40,17 @@
   </div>
 
 </div>
-{{dashboardVm.projectTasks}}
+
 <div style="margin-bottom:20px;"></div>
 
 <table tr-ng-grid="" items="dashboardVm.projectTasks" page-items="dashboardVm.maxResultSet" enable-filtering="false" total-items="dashboardVm.taskCount" on-data-required="dashboardVm.onServerSideItemsRequested(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)" fields="['id','description']">
-
+<thead>
+        <tr>
+            <th field-name="id" width="50%"></th>
+            <th field-name="description" width="50%"></th>
+            <th field-name="" width="300px"></th>
+        </tr>
+    </thead>
   <tbody>
     <tr>
       <td>

@@ -1,15 +1,13 @@
 'use strict'
 
 angular.module('appController', [])
-  .controller('MainCtrl', function(Auth, Notification, $state, config) {
+  .controller('MainCtrl', function(Auth,$rootScope, Notification, $state, config) {
 
     var mainVm = this;
 
-    mainVm.checkIfManager = false;
+    $rootScope.checkIfManager = false;
+    $rootScope.userName = "";
    
-
-    mainVm.loggedIn = Auth.isLoggedIn();
-    console.log("checking is logged in ", mainVm.loggedIn);
     mainVm.login = function() {
 
       Auth.login(mainVm.username, mainVm.password).then(function successHandler(serviceResponse) {
@@ -19,14 +17,16 @@ angular.module('appController', [])
           return;
         }
         if (serviceResponse != undefined && serviceResponse.data.access_token) {
+			 $rootScope.userName = serviceResponse.data.username;
           angular.forEach(serviceResponse.data.roles, function(val) {
             if (val.toString() == config.roles.manager.toString()) {
-              mainVm.checkIfManager = true
+              $rootScope.checkIfManager = true
+			 
             }
 
           });
           $state.go('dashboard', {
-            isManager: mainVm.checkIfManager
+            isManager: $rootScope.checkIfManager
           });
         }
       }, function errorHandler(error) {
@@ -100,25 +100,40 @@ angular.module('appController', [])
       dashboardVm.taskId = $stateParams.taskId;
       dashboardVm.projectId = $stateParams.projectId;
 
-      var data = {
-        taskId: dashboardVm.taskId,
-        projectId: dashboardVm.projectId
-      }
+     
 
-      MainService.getTaskComments(data).then(function(commentsResponse) {
 
-        angular.forEach(commentsResponse.data, function(val, key) {
+    } else {
+      console.log("no project id")
+    }
+	
+	
+	
+	//call to get task comments
+	
+	dashboardVm.getTaskComments = function(taskId,projectId,offSet,maxResult){
+		     
+		  var data = {
+             taskId: taskId,
+             projectId: projectId,
+			 offset:offSet,
+			 maxResultSet:maxResult 
+      };
+		
+		dashboardVm.taskComments=[];
+		MainService.getTaskComments(data).then(function(commentsResponse) {
+
+        angular.forEach(commentsResponse.data.commentList, function(val, key) {
           dashboardVm.taskComments.push({
             id: val.id,
             commentNote: val.commentNote
           });
 			
         });
-		  dashboardVm.taskCount = response.data.taskCount;
+		  dashboardVm.commentCount = commentsResponse.data.commentCount;
       });
-    } else {
-      console.log("no project id")
-    }
+		
+	};
 
 
     dashboardVm.saveTask = function() {
@@ -132,7 +147,7 @@ angular.module('appController', [])
         if (response.status == 200) {
           $scope.dismiss();
           Notification.success('Task Saved ');
-          console.log(response.task)
+          console.log(response)
 
           dashboardVm.projectTasks.push({
             id: response.data.task.id,
@@ -250,11 +265,11 @@ angular.module('appController', [])
 		 dashboardVm.offset = (+currentPage)*7;
 		dashboardVm.getProjects(dashboardVm.offset,dashboardVm.maxResultSet);
 		if(dashboardVm.projectId){
-			console.log("hello inside project id");
+			console.log("hello inside project id getProjectTASK");
 	   dashboardVm.getProjectTasks(dashboardVm.projectId,dashboardVm.offset,dashboardVm.maxResultSet);
 		}
-		if(dashboardVm.taskId){
-			
+		if(dashboardVm.projectId && dashboardVm.taskId){
+			console.log("hello inside project for task and project id");	dashboardVm.getTaskComments(dashboardVm.taskId,dashboardVm.projectId,dashboardVm.offset,dashboardVm.maxResultSet);
 		}
     };
 

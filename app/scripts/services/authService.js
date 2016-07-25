@@ -14,6 +14,7 @@ angular.module('authService', [])
 			password: password
 		})
 		.success(function(serviceResponse) {
+			console.log(serviceResponse);
 			AuthToken.setToken(serviceResponse.access_token);
 
 			return serviceResponse;
@@ -121,9 +122,14 @@ angular.module('authService', [])
 				return $q.reject(response);
 			
 		}
+		
+		if(response.status == -1){
+			
+				return $q.reject(response);
+		}
 		if(response.status == 500){
 			$location.path("/500.html");
-			$q.reject(response);
+			return $q.reject(response);
 			
 		}
 		

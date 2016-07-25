@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module("appRoutes",['ui.router','ui-notification'])
 
 .config(function($stateProvider,$urlRouterProvider,NotificationProvider,$httpProvider){
@@ -12,7 +14,7 @@ angular.module("appRoutes",['ui.router','ui-notification'])
 			, positionY: 'bottom'
 		});
 	$stateProvider
-	        .state('/', {
+	        .state('home', {
 				url: '/'
 				, templateUrl: 'views/main.html'
 				, controller: 'MainCtrl'
@@ -78,21 +80,25 @@ angular.module("appRoutes",['ui.router','ui-notification'])
 	
 	$rootScope.$on('$stateChangeStart', 
     function(event, toState, toParams, fromState, fromParams, options){ 
-//    event.preventDefault(); 
-			
-	    $rootScope.isUserLoggedIn = Auth.isLoggedIn();
-		console.log(fromState);
-		console.log(toState);
-		console.log(fromParams);
-		console.log(toParams);
-				console.log(options);
-		
-		console.log("state changes");
-         console.log(Auth.isAdmin)
-		if(Auth.isLoggedIn()){
-			console.log("yes logged in");
+
+		console.log($rootScope);
+		$rootScope.isUserLoggedIn = Auth.isLoggedIn();
+		if(toState.name === "home"){
+             return;
+          }
+		// this should not be commented
+        //event.preventDefault();
+        // because here we must stop current flow.. .
+
+		if(toState.name === "login" || toState.name === "register"){
+			return;
 		}
-    // transitionTo() promise will be rejected with 
-    // a 'transition prevented' error
-})
+		if(!Auth.isLoggedIn() && toState.name!="login"){
+			 event.preventDefault();
+			 $state.transitionTo("login", null, {notify:false});
+             $state.go('login');
+		}
+       
+		
+});
 }])

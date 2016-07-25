@@ -20,12 +20,13 @@ angular.module('mainService', [])
 			offset:offSet,
 			maxResultSet: max
 		};
-		console.log(pId);
-		console.log("get project task",data);
+
 		var url = baseUrl.concat("api/project/").concat(pId).concat("/task");
-	  return $http.get(url,$.param(data),config.contentTypeConfig)
+	    return $http({method:'GET',
+				url:url,
+				params:data
+				   })
 		.success(function(serviceResponse) {
-		  console.log("response from task service call",serviceResponse);
 			return serviceResponse;
 		});		
 		
@@ -34,9 +35,11 @@ angular.module('mainService', [])
 	mainFactory.getTaskComments = function(data){
 
 		var url = baseUrl.concat("api/project/").concat(data.projectId).concat("/task/").concat(data.taskId).concat("/comment");
-	  return $http.get(url,$.param(data),config.contentTypeConfig)
+	  return $http({method:'GET',
+				url:url,
+				params:data
+				   })
 		.success(function(serviceResponse) {
-		  console.log("response from task service call",serviceResponse);
 			return serviceResponse;
 		});		
 		

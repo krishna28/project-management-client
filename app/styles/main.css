@@ -164,6 +164,11 @@ input[type="text"] {
 	margin-top: 40px;
 }
 
+table {
+    table-layout: fixed;
+}
+
+
 .colorgraph {
   height: 7px;
   border-top: 0;
