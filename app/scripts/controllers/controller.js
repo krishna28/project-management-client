@@ -19,7 +19,9 @@ angular.module('appController', [])
 					return;
 				}
 				if (serviceResponse != undefined && serviceResponse.data.access_token) {
+					console.log("user data",serviceResponse);
 					$rootScope.userName = serviceResponse.data.username;
+					$rootScope.loggedInUserId = serviceResponse.data.id;
 					angular.forEach(serviceResponse.data.roles, function (val) {
 						if (val.toString() == config.roles.manager.toString()) {
 							$rootScope.checkIfManager = true
