@@ -1,3 +1,5 @@
+'use strict'
+
 angular.module('mainService', [])
 .factory('MainService', function($http, $q, AuthToken,config) {
 
