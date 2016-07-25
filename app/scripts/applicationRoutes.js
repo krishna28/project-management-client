@@ -1,3 +1,5 @@
+(function(){
+	
 'use strict';
 
 angular.module("appRoutes",['ui.router','ui-notification'])
@@ -100,4 +102,5 @@ angular.module("appRoutes",['ui.router','ui-notification'])
        
 		
 });
-}])
+}]);
+})();

@@ -1,3 +1,5 @@
+(function(){
+	
 'use strict'
 
 angular.module('appController', [])
@@ -316,3 +318,4 @@ angular.module('appController', [])
 			}
 		}
 	});
+})();	

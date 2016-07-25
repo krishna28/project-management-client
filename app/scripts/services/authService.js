@@ -1,3 +1,5 @@
+(function(){
+	
 'use strict'
 
 angular.module('authService', [])
@@ -137,4 +139,6 @@ angular.module('authService', [])
 	
 	return interceptorFactory;
 });
+	
+})();
 
