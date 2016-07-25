@@ -16,7 +16,6 @@ angular.module('authService', [])
 			password: password
 		})
 		.success(function(serviceResponse) {
-			console.log(serviceResponse);
 			AuthToken.setToken(serviceResponse.access_token);
 
 			return serviceResponse;
@@ -53,8 +52,7 @@ angular.module('authService', [])
 	};
 
 	authFactory.getProjects = function(offSet,max) {
-		console.log("get project",offSet);
-		console.log("get project",max);
+
 		if(AuthToken.getToken()){
 			return $http({method:'GET',
 				url:baseUrl+'api/project',

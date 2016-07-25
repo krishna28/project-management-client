@@ -61,7 +61,7 @@
         <button class="btn btn-primary adminAction" ng-click="dashboardVm.editTask(gridDisplayItem.id)">
           Edit
         </button>
-        <button class="btn btn-primary adminAction" ng-click="dashboardVm.removeTask(gridDisplayItem.id)">
+        <button class="btn btn-primary adminAction" ng-if="checkIfManager" ng-click="dashboardVm.removeTask(gridDisplayItem.id)">
           Delete
         </button>
       </td>

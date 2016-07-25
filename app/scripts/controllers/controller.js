@@ -38,7 +38,7 @@ angular.module('appController', [])
 
 		mainVm.getProjects = function () {
 			Auth.getProjects().then(function successcallback(serviceResponse) {
-				console.log(serviceResponse)
+
 			}, function errorCallback(err) {
 				console.log(err);
 			});
@@ -47,9 +47,8 @@ angular.module('appController', [])
 
 		mainVm.register = function () {
 
-			console.log("inside regiseter", mainVm);
 			Auth.register(mainVm.username, mainVm.password).then(function (serviceResponse) {
-				console.log(serviceResponse);
+
 				if (serviceResponse.data.status == 200) {
 					Notification.success('User created');
 					$state.go('login');
@@ -61,7 +60,6 @@ angular.module('appController', [])
 
 	})
 	.controller('DashboardCtrl', function (Auth, $scope, $state, $stateParams, MainService, Notification) {
-		console.log("DashboardCtrl controller");
 		var dashboardVm = this;
 		dashboardVm.maxResultSet = 7;
 		dashboardVm.offset = 0;
@@ -71,19 +69,14 @@ angular.module('appController', [])
 		dashboardVm.projectId = null;
 		dashboardVm.taskId = null;
 
-
-
 		if ($stateParams.projectId) {
 			dashboardVm.projectId = $stateParams.projectId;
 
-		} else {
-			console.log("no task id")
-		}
+		} 
 
 
 		dashboardVm.getProjectTasks = function (projectId, offSet, maxResult) {
 			MainService.getProjectTasks(dashboardVm.projectId, offSet, maxResult).then(function (taskResponse) {
-				console.log("task List", taskResponse);
 				dashboardVm.projectTasks = [];
 				angular.forEach(taskResponse.data.taskList, function (val, key) {
 					dashboardVm.projectTasks.push({
@@ -99,12 +92,6 @@ angular.module('appController', [])
 		if ($stateParams.taskId && $stateParams.projectId) {
 			dashboardVm.taskId = $stateParams.taskId;
 			dashboardVm.projectId = $stateParams.projectId;
-
-
-
-
-		} else {
-			console.log("no project id")
 		}
 
 
@@ -143,11 +130,10 @@ angular.module('appController', [])
 				, description: dashboardVm.description
 			}
 			MainService.saveTask(data).then(function (response) {
-				console.log(response);
+
 				if (response.status == 200) {
 					$scope.dismiss();
 					Notification.success('Task Saved ');
-					console.log(response)
 
 					dashboardVm.projectTasks.push({
 						id: response.data.task.id
@@ -168,7 +154,6 @@ angular.module('appController', [])
 				, commentNote: dashboardVm.commentNote
 			}
 			MainService.saveComment(data).then(function (response) {
-				console.log(response);
 				if (response.status == 200) {
 					$scope.dismiss();
 					Notification.success('Comment Saved ');
@@ -207,7 +192,6 @@ angular.module('appController', [])
 
 
 		dashboardVm.createProject = function () {
-			console.log("yes you are inside cretae project");
 			MainService.createProject(dashboardVm.projectName, dashboardVm.description).then(function successHandler(serviceResponse) {
 				console.log(serviceResponse);
 				if (serviceResponse.status == 200) {
@@ -222,7 +206,6 @@ angular.module('appController', [])
 
 		//redirect to addTask page
 		dashboardVm.addTask = function (id) {
-			console.log("About controller getProjects");
 
 			$state.go('dashboard.addTask', {
 				projectId: id
@@ -233,7 +216,6 @@ angular.module('appController', [])
 
 		//redirect to addComment page
 		dashboardVm.addComment = function (id) {
-			console.log("About controller getProjects");
 
 			$state.go('dashboard.addComment', {
 				taskId: id
@@ -245,7 +227,7 @@ angular.module('appController', [])
 
 		//delete a post
 		dashboardVm.removeProject = function (id) {
-			console.log("About controller getProjects");
+
 			Auth.getProjects().then(function (response) {
 				console.log(response);
 
@@ -283,7 +265,6 @@ angular.module('appController', [])
 						if (val.id == taskId)
 							index = key;
 					})
-					console.log("index is ", index);
 					dashboardVm.projectTasks.splice(index, 1)
 
 				}
@@ -322,10 +303,7 @@ angular.module('appController', [])
 	.controller('LogoutCtrl', ['Auth', '$rootScope'
     , function (Auth, $rootScope) {
 			Auth.logout();
-			console.log("logged out");
-			console.log($rootScope);
 			$rootScope.isUserLoggedIn = false;
-			console.log(Auth.isLoggedIn());
     }
   ])
 	.directive('myModal', function () {

@@ -18,7 +18,7 @@
 					Edit
 				</button>
 
-				<button class="btn btn-primary adminAction" ng-click="dashboardVm.removeProject(gridDisplayItem.id)">
+				<button class="btn btn-primary adminAction" ng-if="checkIfManager" ng-click="dashboardVm.removeProject(gridDisplayItem.id)">
 					Delete
 				</button>
 
