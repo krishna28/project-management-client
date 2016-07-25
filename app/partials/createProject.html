@@ -1,0 +1,14 @@
+<div class="col-md-10">
+<form>
+  <fieldset class="form-group">
+    <label for="projectName" class="pull-left">Project</label>
+    <input type="text" name="projectName" class="form-control" id="projectName" placeholder="Name" ng-model="dashboardVm.projectName">
+  </fieldset>
+  <fieldset class="form-group">
+    <label for="description" class="pull-left">Description</label>
+    <input type="text" name="description" class="form-control" id="description" placeholder="description" ng-model="dashboardVm.description">
+  </fieldset>
+ <button type="submit" class="btn btn-primary" ng-click="dashboardVm.createProject()">Create</button>
+  
+</form>
+</div>

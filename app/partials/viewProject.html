@@ -1,0 +1,20 @@
+
+   <table tr-ng-grid="" items="dashboardVm.projectData" page-items="dashboardVm.maxResultSet" enable-filtering="false" total-items="dashboardVm.projectCount" on-data-required="dashboardVm.onServerSideItemsRequested(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)" fields="['id','projectName','description']">
+
+    <tbody>
+        <tr>
+            <td>
+                <button class="btn btn-primary adminAction" ng-click="dashboardVm.addTask(gridDisplayItem.id)">
+                    View Task
+                </button>
+                |
+                 <button class="btn btn-primary adminAction" ng-click="dashboardVm.removeProject(gridDisplayItem.id)">
+                    Delete
+                </button>
+            </td>
+           
+        </tr>
+    </tbody>
+
+
+</table>

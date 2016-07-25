@@ -1,0 +1,66 @@
+
+<div ng-controller="DashboardCtrl as dashboardVm">
+<!-- Button trigger modal -->
+<button class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#myModal" style="margin:20px;">Add Task
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" my-modal tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Create Task</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+         <div class="col-md-10">
+          <form role="form">
+
+            <div class="form-group">
+              <label for="comment" class="pull-left">Description:</label>
+              <textarea class="form-control" rows="5" ng-model="dashboardVm.description" id="description"></textarea>
+            </div>
+
+
+            <div class="form-group">
+              <label for="category" class="pull-left control-label">Assign To User</label>
+              <select ng-options="user as user.username for user in dashboardVm.users track by user.id" class="form-control" id="user" ng-model="dashboardVm.user"></select>
+            </div>
+          </form>
+</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="dashboardVm.saveTask()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{{dashboardVm.projectTasks}}
+<div style="margin-bottom:20px;"></div>
+
+<table tr-ng-grid="" items="dashboardVm.projectTasks" page-items="dashboardVm.maxResultSet" enable-filtering="false" total-items="dashboardVm.taskCount" on-data-required="dashboardVm.onServerSideItemsRequested(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)" fields="['id','description']">
+
+  <tbody>
+    <tr>
+      <td>
+        <button class="btn btn-primary adminAction" ng-click="dashboardVm.addComment(gridDisplayItem.id)">
+          View Comment
+        </button>
+        |
+        <button class="btn btn-primary adminAction" ng-click="dashboardVm.removeTask(gridDisplayItem.id)">
+          Delete
+        </button>
+      </td>
+
+    </tr>
+  </tbody>
+
+
+</table>
+
+</div>
