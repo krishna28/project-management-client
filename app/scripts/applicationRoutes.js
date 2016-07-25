@@ -81,7 +81,6 @@ angular.module("appRoutes",['ui.router','ui-notification'])
 	$rootScope.$on('$stateChangeStart', 
     function(event, toState, toParams, fromState, fromParams, options){ 
 
-		console.log($rootScope);
 		$rootScope.isUserLoggedIn = Auth.isLoggedIn();
 		if(toState.name === "home"){
              return;

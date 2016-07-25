@@ -185,7 +185,6 @@ angular.module('appController', [])
     dashboardVm.getProjects = function(offset,max) {
 		
       Auth.getProjects(offset,max).then(function(response) {
-        console.log("respinse",response);
         dashboardVm.projectData = response.data.projectList;
         dashboardVm.projectCount = response.data.projectCount;
       })
@@ -249,6 +248,7 @@ angular.module('appController', [])
       console.log("About controller getProjects");
       Auth.getProjects().then(function(response) {
         console.log(response);
+		  
       })
     };
 
@@ -272,6 +272,25 @@ angular.module('appController', [])
 			console.log("hello inside project for task and project id");	dashboardVm.getTaskComments(dashboardVm.taskId,dashboardVm.projectId,dashboardVm.offset,dashboardVm.maxResultSet);
 		}
     };
+	
+	
+	dashboardVm.removeTask = function(taskId){
+    MainService.deleteTask(dashboardVm.projectId,taskId).then(function(response){
+		 	console.log(response);
+		var index = -1;
+		if(response.status == 200){
+		  	angular.forEach(dashboardVm.projectTasks,function(val,key){
+				console.log("val",val);
+		  	if(val.id == taskId)
+				index = key;
+		  	})
+			console.log("index is ",index);
+			 dashboardVm.projectTasks.splice(index,1) 
+			
+		  }
+		 });
+		
+	};
 
 
   })

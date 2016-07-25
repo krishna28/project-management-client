@@ -75,8 +75,13 @@ angular.module('mainService', [])
 		
 	}
 	
-	mainFactory.deleteTask = function(){
+	mainFactory.deleteTask = function(projectId,taskId){
+		var url = baseUrl.concat("api/project/").concat(projectId).concat("/task/").concat(taskId);
 		
+		return $http.delete(url,config.contentTypeConfig)
+		.success(function(serviceResponse) {
+			return serviceResponse;
+		})	
 		
 	}
 	
