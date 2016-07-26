@@ -63,7 +63,7 @@ angular.module('appController', [])
 		};
 
 	})
-	.controller('DashboardCtrl', function (Auth, $scope, $state, $stateParams, MainService, Notification) {
+	.controller('DashboardCtrl', function (Auth,$rootScope,$scope, $state, $stateParams, MainService, Notification) {
 		var dashboardVm = this;
 		dashboardVm.maxResultSet = 7;
 		dashboardVm.offset = 0;
@@ -152,7 +152,7 @@ angular.module('appController', [])
 
 		dashboardVm.saveComment = function () {
 			var data = {
-				userId: 1
+				userId: $rootScope.userName
 				, projectId: dashboardVm.projectId
 				, taskId: dashboardVm.taskId
 				, commentNote: dashboardVm.commentNote
