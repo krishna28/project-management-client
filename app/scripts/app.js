@@ -13,7 +13,7 @@ angular
   .module('projectManagementApplicationApp', ['appRoutes','authService','mainService','appController','trNgGrid'])
  .constant('config',{
 	       appName: 'Project Management Application',
-		   apiUrl:'http://localhost:8080/project-management-application/',
+		   apiUrl:'https://polar-garden-16750.herokuapp.com/',
 	       roles:{
 	       	manager:'ROLE_MANAGER',
 			user:'ROLE_USER'   
