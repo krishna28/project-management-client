@@ -68,7 +68,7 @@ angular.module("appRoutes",['ui.router','ui-notification'])
 		        taskId:null,
 				projectId:null	
 		        }
-				, templateUrl: 'partials/create	Comment.html'
+				, templateUrl: 'partials/createComment.html'
 				, controller: 'DashboardCtrl'
 			})
 	        
