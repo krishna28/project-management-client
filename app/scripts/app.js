@@ -9,8 +9,7 @@
  *
  * Main module of the application.
  */
-angular
-  .module('projectManagementApplicationApp', ['appRoutes','authService','mainService','appController','trNgGrid'])
+angular.module('projectManagementApplicationApp', ['appRoutes','authService','mainService','appController','trNgGrid'])
  .constant('config',{
 	       appName: 'Project Management Application',
 		   apiUrl:'https://polar-garden-16750.herokuapp.com/',
